@@ -1,0 +1,16 @@
+ * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+} 
+body {
+    background-image: url("assets/images/weather-background.jpg");
+    height: 500px;
+}
+.inputValue, .button {
+  border-radius: 5px;
+}
+
+.inputValue {
+    width: 40%;
+}
