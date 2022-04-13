@@ -21,32 +21,28 @@ function title() {
 }
 
 // }
-// function for both api calls
-function getData() {
+// displays current weather conditions
+function displayCurrent() {
     fetch(currentUrl + cityName.value + "&Appid=" + apiKey + "&units=imperial")
         .then(response => response.json())
         .then(data => {
             let lat = data.coord.lat
             let lon = data.coord.lon
             console.log(data)
-            fetch(forecastUrl + lat + "&lon=" + lon + "&appid=5686c46a54707e23e5474e6b38ba9744&units=imperial&exclude=hourly,minutely,current,alerts")
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data)
-                })
 
             //extract data for current weather conditions
-            var temp = data['main']['temp'];
+            // = data['main']['temp'];
+            var temp = (Math.floor(data['main']['temp']));
             var humid = data['main']['humidity'];
-            var wind = data['wind']['speed'];
+            var wind = (Math.floor(data['wind']['speed']));
             var icon = data.weather[0].icon;
             //get date
             let date = new Date(data.dt * 1000).toLocaleDateString("en-US")
 
             $("#currentDate").text(date);
-            $("#current-temp").text(temp);
-            $("#current-humidity").text(humid);
-            $("#current-wind").text(wind);
+            $("#current-temp").text(temp + ` F`);
+            $("#current-humidity").text(humid + ` %`);
+            $("#current-wind").text(wind + ` MPH`);
 
             // $("#current-icon").text("https://openweathermap.org/img/w/" + icon + ".png");
             // $(".current-icon").attr("src", "https://openweathermap.org/img/w/" + icon + ".png");
@@ -59,43 +55,90 @@ function getData() {
             // display 5-day forecast
 
             //added lat and lon to pass into next function
-            displayForecast(data);
+            displayForecast(lat, lon);
 
 
         })
 
-    function displayForecast(data) {
-        console.log("DISPLAY FORECAST", data)
 
-        let forecastContainer = document.getElementById("forecast");
-        forecastContainer.innerHTML = ""
-
-        for (let i = 1; i <= 5; i++) {
-            let card = document.createElement("div");
-            card.classList = "card mb-r me-2";
-            card.style = "max-width: 12rem";
-
-            let cardBody = document.createElement("div");
-            cardBody.classList = "card-body"
-
-            // let iconImg = document.createElement('img')
-            // iconImg.setAttribute('src', `http://openweathermap.org/img/w/${data[i].weather[0].icon}.png`)
-            // cardBody.appendChild(iconImg);
-
-            let tempText = document.createElement("p")
-            tempText.classList = "card-text"
-            tempText.innerHTML = `Temp: ${data[i].daily.temp}°F`
-            cardBody.appendChild(tempText)
-
-        }
-    }
 
     title(cityName)
 
 }
 
+function displayForecast(lat, lon) {
+    fetch(forecastUrl + lat + "&lon=" + lon + "&appid=5686c46a54707e23e5474e6b38ba9744&units=imperial&exclude=hourly,minutely,current,alerts")
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
 
+            const daily = data.daily
+
+            for (let i = 1; i <= 5; i++) {
+                let forecastContainer = document.getElementById("forecast");
+
+                let date = new Date(daily[i].dt * 1000).toLocaleDateString("en-US");
+
+                let cardEl = document.createElement("div");
+                cardEl.classList = 'card';
+                // let forecastContainer = document.querySelector(".row")
+                let title = document.createElement("h4");
+                title.textContent = date
+                title.classList = "title"
+                cardEl.append(title)
+                forecastContainer.append(cardEl);
+
+
+                // let dateEl = document.createElement("div")
+                // dateEl.innerHTML = date
+
+                // cardEl.append(dateEl);
+                // let card = document.createElement("div");
+                // card.classList = "card mb-r me-2";
+                // card.style = "max-width: 12rem";
+
+                // let cardBody = document.createElement("div");
+                // cardBody.classList = "card-body"
+
+                let iconImg = document.createElement('img')
+                iconImg.setAttribute('src', `http://openweathermap.org/img/w/${daily[i].weather[0].icon}.png`)
+                // cardBody.appendChild(iconImg);
+                // cardEl.appendChild(cardBody);
+                cardEl.appendChild(iconImg);
+                // const daily = data.daily
+
+
+                let tempMax = daily[i].temp.max;
+                let tempMin = daily[i].temp.min;
+                let lowTemp = document.createElement('p');
+                let tempText = document.createElement("p")
+                tempText.innerHTML = `Temp: ${daily[i].temp.day}°F`
+                tempText.innerText = 'High: ' + tempMax + ' °F'
+                lowTemp.innerText = 'Low: ' + tempMin + ' °F'
+                cardEl.appendChild(tempText)
+                cardEl.appendChild(lowTemp);
+
+                let humidEl = document.createElement('p');
+                let humidity = daily[i].humidity;
+                humidEl.innerHTML = `Humidy: ` + humidity + `%`
+                cardEl.appendChild(humidEl);
+
+                let windEl = document.createElement('p');
+                let wind = daily[i].wind_speed;
+                windEl.innerHTML = `Wind: ` + wind + `MPH`
+                cardEl.appendChild(windEl);
+
+
+
+            }
+
+        })
+
+
+    // forecastContainer.innerHTML = ""
+
+}
 
 
 // function triggering api call when submit button is clicked
-button.addEventListener("click", getData)
+button.addEventListener("click", displayCurrent)

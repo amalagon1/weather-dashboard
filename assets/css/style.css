@@ -28,19 +28,31 @@ body {
 
 .dateContainer h3 {
     margin-left: 20px;
-    border: solid red;
+    /* border: solid white; */
 }
 
 .card{
     background-color:rgba(24,24,27,0.4);
     border-radius: 10px;
     border: 1px solid white;
+    margin: 20px;
 }
 
-/* #forecast{
+.title{
+    /* border: solid white 2px; */
+}
+ #forecast{
     background-color:rgba(24,24,27,0.4);
-    width: 18rem;
     border-radius: 10px;
     border: 1px solid white;
     margin-left: 5px;
-} */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+} 
+
+.row{
+    display: flex;
+    align-items: center;
+
+}
