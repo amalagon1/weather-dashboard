@@ -4,6 +4,7 @@ var cityName = document.querySelector('.inputValue');
 var apiKey = "5686c46a54707e23e5474e6b38ba9744";
 var currentPic = document.getElementById("current-icon");
 const forecastEl = document.getElementById("forecast");
+const forecastText = document.getElementById("day")
 
 // current weather conditions url
 
@@ -74,6 +75,8 @@ function displayForecast(lat, lon) {
 
             const daily = data.daily
 
+            forecastText.style.display = 'block';
+
             for (let i = 1; i <= 5; i++) {
                 let forecastContainer = document.getElementById("forecast");
 
@@ -102,21 +105,19 @@ function displayForecast(lat, lon) {
 
                 let iconImg = document.createElement('img')
                 iconImg.setAttribute('src', `http://openweathermap.org/img/w/${daily[i].weather[0].icon}.png`)
+                iconImg.classList = "img"
                 // cardBody.appendChild(iconImg);
                 // cardEl.appendChild(cardBody);
                 cardEl.appendChild(iconImg);
-                // const daily = data.daily
 
-
-                let tempMax = daily[i].temp.max;
-                let tempMin = daily[i].temp.min;
-                let lowTemp = document.createElement('p');
-                let tempText = document.createElement("p")
-                tempText.innerHTML = `Temp: ${daily[i].temp.day}°F`
-                tempText.innerText = 'High: ' + tempMax + ' °F'
-                lowTemp.innerText = 'Low: ' + tempMin + ' °F'
-                cardEl.appendChild(tempText)
-                cardEl.appendChild(lowTemp);
+                let tempMaxEl = document.createElement('p');
+                let tempMinEl = document.createElement('p');
+                let tempMax = Math.floor(daily[i].temp.max);
+                let tempMin = Math.floor(daily[i].temp.min);
+                tempMaxEl.innerHTML = `High: ` + tempMax + ` °F`
+                tempMinEl.innerHTML = `Low: ` + tempMin + ` °F`
+                cardEl.appendChild(tempMaxEl);
+                cardEl.appendChild(tempMinEl);
 
                 let humidEl = document.createElement('p');
                 let humidity = daily[i].humidity;
@@ -124,8 +125,8 @@ function displayForecast(lat, lon) {
                 cardEl.appendChild(humidEl);
 
                 let windEl = document.createElement('p');
-                let wind = daily[i].wind_speed;
-                windEl.innerHTML = `Wind: ` + wind + `MPH`
+                let wind = Math.floor(daily[i].wind_speed);
+                windEl.innerHTML = `Wind: ` + wind + ` MPH`
                 cardEl.appendChild(windEl);
 
 

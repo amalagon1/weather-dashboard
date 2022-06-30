@@ -32,27 +32,44 @@ body {
 }
 
 .card{
+    width: 150px;
     background-color:rgba(24,24,27,0.4);
     border-radius: 10px;
     border: 1px solid white;
     margin: 20px;
 }
 
-.title{
+ .title{
     /* border: solid white 2px; */
-}
+} 
  #forecast{
     background-color:rgba(24,24,27,0.4);
     border-radius: 10px;
-    border: 1px solid white;
+    /* border: 1px solid white; */
     margin-left: 5px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 } 
 
+#forecast h1{
+    display: none;
+}
 .row{
     display: flex;
     align-items: center;
 
+}
+
+.img {
+    width: 60px;
+}
+
+@media (max-width: 600px) {
+    #forecast {
+        flex-direction: column;
+    }
+    .card{
+        width: 200px;
+    }
 }
