@@ -8,8 +8,10 @@
     color: white;
 } 
 body {
+    position: relative;
     background-image: url("../images/weather-background.jpg");
    background-size: cover;
+   height: 100vh;
 }
 .inputValue, .button {
   border-radius: 5px;
@@ -17,13 +19,40 @@ body {
 }
 
 .inputValue {
-    width: 40%;
+    width: 400px;
+}
+
+.search-container{
+    position: absolute;
+    width: 100%;
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+    align-items: center;
+    top: 7%;
+}
+
+.dateContainer{
+    position: relative;
+    margin-top: 20px;
+    margin-right: 8rem;
+    
+}
+
+#currentDate{
+    margin-top: 8px;
+}
+
+
+.title{
+
+    margin-bottom: 30px;
 }
 
  .dateContainer {
     display: flex;
     justify-content: right;
-   
+   visibility: hidden;
 } 
 
 .dateContainer h3 {
@@ -39,18 +68,30 @@ body {
     margin: 20px;
 }
 
- .title{
-    /* border: solid white 2px; */
-} 
+ /* .title{
+    border: solid white 2px;
+}  */
  #forecast{
+     /* position: absolute;
+    bottom: 20%;
+    left: 10%; */
     background-color:rgba(24,24,27,0.4);
     border-radius: 10px;
     /* border: 1px solid white; */
-    margin-left: 5px;
+    /* margin-left: 5px; */
     display: flex;
     justify-content: space-between;
     align-items: center;
 } 
+
+.forecast-container{
+position: absolute;
+bottom: 20%;
+left: 15%; 
+visibility: hidden; 
+    display: flex;
+    flex-direction: column;
+}
 
 #forecast h1{
     display: none;

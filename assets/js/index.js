@@ -3,8 +3,11 @@ var button = document.querySelector(".button");
 var cityName = document.querySelector('.inputValue');
 var apiKey = "5686c46a54707e23e5474e6b38ba9744";
 var currentPic = document.getElementById("current-icon");
-const forecastEl = document.getElementById("forecast");
-const forecastText = document.getElementById("day")
+var currentEl = document.querySelector('.card');
+var dateEl = document.querySelector('.dateContainer');
+const forecastEl = document.querySelector(".forecast-container");
+const forecastText = document.getElementById("day");
+var forecastContainer = document.getElementById("forecast");
 
 // current weather conditions url
 
@@ -39,6 +42,10 @@ function displayCurrent() {
             var icon = data.weather[0].icon;
             //get date
             let date = new Date(data.dt * 1000).toLocaleDateString("en-US")
+
+            currentEl.style.visibility = 'visible';
+            dateEl.style.visibility = 'visible';
+
 
             $("#currentDate").text(date);
             $("#current-temp").text(temp + ` F`);
@@ -75,7 +82,7 @@ function displayForecast(lat, lon) {
 
             const daily = data.daily
 
-            forecastText.style.display = 'block';
+            forecastEl.style.visibility = "visible";
 
             for (let i = 1; i <= 5; i++) {
                 let forecastContainer = document.getElementById("forecast");
@@ -139,7 +146,14 @@ function displayForecast(lat, lon) {
     // forecastContainer.innerHTML = ""
 
 }
-
+function reset() {
+    if (
+        forecastEl.firstChild
+    ) {
+        forecastContainer.innerHTML = ''
+    }
+    displayCurrent()
+}
 
 // function triggering api call when submit button is clicked
-button.addEventListener("click", displayCurrent)
+button.addEventListener("click", reset)
