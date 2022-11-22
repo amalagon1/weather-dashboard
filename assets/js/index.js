@@ -6,7 +6,7 @@ var currentPic = document.getElementById("current-icon");
 var currentEl = document.querySelector('.card');
 var dateEl = document.querySelector('.dateContainer');
 const forecastEl = document.querySelector(".forecast-container");
-const forecastText = document.getElementById("day");
+const forecastText = document.querySelector(".day");
 var forecastContainer = document.getElementById("forecast");
 
 // current weather conditions url

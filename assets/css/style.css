@@ -7,11 +7,24 @@
     font-family: "Poppins", sans-serif;
     color: white;
 } 
+
+header{
+    width: 100%;
+    text-align: center;
+    background: rgba(63,63,63,0.4);
+}
 body {
     position: relative;
-    background-image: url("../images/weather-background.jpg");
+    background: url("../images/weather-background.jpg");
    background-size: cover;
    height: 100vh;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .inputValue, .button {
   border-radius: 5px;
@@ -23,13 +36,12 @@ body {
 }
 
 .search-container{
-    position: absolute;
     width: 100%;
     display: flex;
     /* flex-direction: column; */
     justify-content: center;
     align-items: center;
-    top: 7%;
+
 }
 
 .dateContainer{
@@ -49,11 +61,11 @@ body {
     margin-bottom: 30px;
 }
 
- .dateContainer {
+ /* .dateContainer {
     display: flex;
     justify-content: right;
    visibility: hidden;
-} 
+}  */
 
 .dateContainer h3 {
     margin-left: 20px;
@@ -61,10 +73,11 @@ body {
 }
 
 .card{
-    width: 150px;
+    width: 200px;
     background-color:rgba(24,24,27,0.4);
     border-radius: 10px;
     border: 1px solid white;
+    padding: 15px 15px;
     margin: 20px;
 }
 
@@ -72,25 +85,22 @@ body {
     border: solid white 2px;
 }  */
  #forecast{
-     /* position: absolute;
-    bottom: 20%;
-    left: 10%; */
     background-color:rgba(24,24,27,0.4);
     border-radius: 10px;
     /* border: 1px solid white; */
     /* margin-left: 5px; */
+    width: 80%;
+    margin: auto;
     display: flex;
+    /* flex-wrap: wrap; */
     justify-content: space-between;
     align-items: center;
 } 
 
 .forecast-container{
-position: absolute;
-bottom: 20%;
-left: 15%; 
 visibility: hidden; 
-    display: flex;
-    flex-direction: column;
+display: flex;
+flex-direction: column;
 }
 
 #forecast h1{
@@ -112,5 +122,33 @@ visibility: hidden;
     }
     .card{
         width: 200px;
+    }
+}
+
+@media(max-width: 725px) {
+    .search-container{
+        flex-direction: column;
+    }
+    .forecast-container{
+        flex-direction: column;
+    }
+    .search-wrapper{
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .input{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .inputValue{
+        width: 250px;
+    }
+    .dateContainer{
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }
